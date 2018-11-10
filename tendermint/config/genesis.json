@@ -1,0 +1,25 @@
+{
+  "genesis_time": "2018-11-10T16:32:32.470026272Z",
+  "chain_id": "forest-network-0",
+  "consensus_params": {
+    "block_size_params": {
+      "max_bytes": "22020096",
+      "max_gas": "-1"
+    },
+    "evidence_params": {
+      "max_age": "100000"
+    }
+  },
+  "validators": [
+    {
+      "address": "9951F84B2107C3673849F7B525DAA5AA69616F61",
+      "pub_key": {
+        "type": "tendermint/PubKeyEd25519",
+        "value": "NC8EDLbzGKBlH47m0zCjXi+Jp2wv11GqwT3Pb+85K7Q="
+      },
+      "power": "10",
+      "name": ""
+    }
+  ],
+  "app_hash": ""
+}

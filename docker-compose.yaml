@@ -1,0 +1,15 @@
+version: '3'
+services:
+  forest-network:
+    ports:
+      - 9229:9229
+      - 26656:26656
+      - 26657:26657
+      - 26658:26658
+    environment:
+      PORT: 26657
+      SHOW_TENDERMINT_LOG: 0
+    build: .
+    volumes:
+      - ./tendermint:/usr/src/app/tendermint
+    command: yarn inspect

@@ -76,7 +76,10 @@ typings/
 .fusebox/
 
 # forest.network
-tendermint/
+tendermint/config/node_key.json
+tendermint/config/priv_validator.json
+tendermint/config/config.toml
+tendermint/data
 
 # OS X
 .DS_Store
