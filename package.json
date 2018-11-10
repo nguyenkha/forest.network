@@ -1,0 +1,15 @@
+{
+  "name": "forest.network",
+  "version": "0.0.1",
+  "description": "forest.network - decentralized social network",
+  "main": "app.js",
+  "repository": "git@github.com:nguyenkha/forest.network.git",
+  "author": "Kha N. Do <donguyenkha@gmail.com>",
+  "license": "MIT",
+  "scripts": {
+    "start": "node app.js"
+  },
+  "dependencies": {
+    "lotion": "^0.2.3"
+  }
+}
