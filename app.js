@@ -17,9 +17,7 @@ const app = lotion({
 app.home = path.join(__dirname, 'tendermint');
 
 app.use(function (state, tx) {
-  if (state.count === tx.nonce) {
-    state.count++
-  }
+  state.count++;
 });
 
 app.start()
