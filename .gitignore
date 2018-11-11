@@ -76,8 +76,9 @@ typings/
 .fusebox/
 
 # forest.network
-tendermint/config/node_key.*.json
-tendermint/config/priv_validator.*.json
+tendermint/config/node_key.*
+tendermint/config/priv_validator.*
+tendermint/config/genesis.*.json
 tendermint/config/addrbook.json
 tendermint/config/config.toml
 tendermint/data
