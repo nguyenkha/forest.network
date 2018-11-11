@@ -19,6 +19,24 @@
       },
       "power": "10",
       "name": ""
+    },
+    {
+      "address": "33B50866E99293294AF29165B429906CC32CE8BA",
+      "pub_key": {
+        "type": "tendermint/PubKeyEd25519",
+        "value": "iYGplV6lpKetFknvkWlonwBAYgfxMVUWbpHgW6idSkQ="
+      },
+      "power": "10",
+      "name": ""
+    },
+    {
+      "address": "837BD586EA4F0B385CB0D2901A1503AD62794A57",
+      "pub_key": {
+        "type": "tendermint/PubKeyEd25519",
+        "value": "B9JK36OJGjvJB4YvAlE/FacBvFyMMMvoI6h29OQH7Jk="
+      },
+      "power": "10",
+      "name": ""
     }
   ],
   "app_hash": ""
