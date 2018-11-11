@@ -7,7 +7,6 @@ services:
       - 26657:26657
       - 26658:26658
     environment:
-      PORT: 26657
       SHOW_TENDERMINT_LOG: 0
     build: .
     volumes:

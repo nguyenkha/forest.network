@@ -1,16 +1,14 @@
 const lotion = require('lotion');
 const path = require('path');
 
-const rpcPort = process.env.PORT || 26657;
-
 const app = lotion({
   initialState: {
     count: 0
   },
   logTendermint: process.env.SHOW_TENDERMINT_LOG === '1',
-  rpcPort,
-  p2pPort: 26656,
+  rpcPort: 26657,
   abciPort: 26658,
+  p2pPort: 26656,
 });
 
 // Overwrite tendermint home
