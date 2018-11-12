@@ -11,6 +11,10 @@
     "inspect": "node --inspect=0.0.0.0:9229 app.js"
   },
   "dependencies": {
-    "lotion": "^0.2.3"
+    "deterministic-json": "^1.0.5",
+    "lodash": "^4.17.11",
+    "lotion": "^0.2.3",
+    "stellar-base": "^0.9.0",
+    "varstruct": "^6.1.2"
   }
 }
