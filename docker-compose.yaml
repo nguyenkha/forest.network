@@ -1,13 +1,14 @@
 version: '3'
 services:
-  forest-network:
+  core:
     ports:
       - 9229:9229
       - 26656:26656
       - 26657:26657
       - 26658:26658
     environment:
-      SHOW_TENDERMINT_LOG: 0
+      SHOW_TENDERMINT_LOG: 1
+      GENESIS_ADDRESS: GAS3UFFXDUNZ57526OEY7D7642ELZ2DXIKAYHP6IR6PGM2UGEO7RXZDX
     build: .
     volumes:
       - ./tendermint:/usr/src/app/tendermint
