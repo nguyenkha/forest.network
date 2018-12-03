@@ -1,11 +1,12 @@
 const lotion = require('lotion');
 // Enhance lotion
 require('./lib/fork_lotion');
-const { UnsignedTransaction, Transaction } = require('./lib/transaction');
-const { CreateAccount, Payment } = require('./lib/operation');
+const { Transaction, UnsignedTransaction } = require('./lib/transaction');
+const operation = require('./lib/operation');
 const { Keypair } = require('stellar-base');
 const path = require('path');
 const crypto = require('crypto');
+const base32 = require('base32.js');
 
 const app = lotion({
   initialState: {
@@ -14,6 +15,7 @@ const app = lotion({
       [process.env.GENESIS_ADDRESS]: {
         balance: Number.MAX_SAFE_INTEGER,
         sequence: 0,
+        posts: {},
       },
     },
   },
@@ -35,7 +37,8 @@ app.use(function (state, tx) {
     .toUpperCase();
 
   // Account
-  const account = state.accounts[tx.account];
+  const accountString = base32.encode(tx.account);
+  const account = state.accounts[accountString];
   if (!account) {
     throw Error('Account does not exist.');
   }
@@ -51,7 +54,7 @@ app.use(function (state, tx) {
   }
 
   // Signature
-  const key = Keypair.fromPublicKey(tx.account);
+  const key = Keypair.fromPublicKey(accountString);
   // Hash for sign
   const unsignedHash = crypto
     .createHash('sha256')
@@ -61,23 +64,29 @@ app.use(function (state, tx) {
     throw Error('Signature can not be verified.');
   }
 
+  // Increase account sequence
+  account.sequence++;
+
   // Operation: create account, payment, post, comment (?), like
-  if (tx.operation === 'create_account') {
-    const { address } = CreateAccount.decode(tx.params);
+  if (tx.operation === operation.CREATE_ACCOUNT) {
+    const { address } = operation.CreateAccountParams.decode(tx.params);
+    const addressString = base32.encode(address);
     // Check the key
-    Keypair.fromPublicKey(address);
-    const found = state.accounts[address];
+    Keypair.fromPublicKey(addressString);
+    const found = state.accounts[addressString];
     if (found) {
       throw Error('Account address existed.');
     }
     const newAccount = {
       balance: 0,
       sequence: 0,
+      posts: {},
     };
-    state.accounts[address] = newAccount;
-  } else if (tx.operation === 'payment') {
-    const { address, amount } = Payment.decode(tx.params);
-    if (address === tx.account) {
+    state.accounts[addressString] = newAccount;
+  } else if (tx.operation === operation.PAYMENT) {
+    const { address, amount } = operation.PaymentParams.decode(tx.params);
+    const addressString = base32.encode(address);
+    if (address.compare(tx.account) === 0) {
       throw Error('Cannot transfer to the same address');
     }
     if (amount <= 0) {
@@ -86,15 +95,22 @@ app.use(function (state, tx) {
     if (amount > account.balance) {
       throw Error('Amount must be less or equal to source balance');
     }
-    const found = state.accounts[address];
+    const found = state.accounts[addressString];
     if (!found) {
       throw Error('Account address does not exist.');
     }
     account.balance -= amount;
     found.balance += amount;
+  } else if (tx.operation === operation.POST) {
+    const { content } = operation.PostParams.decode(tx.params);
+    account.posts[hash] = {
+      content,
+    };
   } else {
     throw Error('Operation is not support.');
   }
+
+  console.log(JSON.stringify(state));
 });
 
 app.start()
