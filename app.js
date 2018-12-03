@@ -80,10 +80,11 @@ app.use(function (state, tx) {
     account.balance -= amount;
     found.balance += amount;
   } else if (tx.operation === 'post') {
-    const { content } = tx.params;
+    const { content, keys } = tx.params;
     // Mark post by hash
     account.posts[txHash] = {
       content,
+      keys,
     };
   } else if (tx.operation === 'update_account') {
     const { name } = tx.params;
