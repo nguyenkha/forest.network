@@ -1,12 +1,8 @@
 const lotion = require('lotion');
 // Enhance lotion
 require('./lib/fork_lotion');
-const { Transaction, UnsignedTransaction } = require('./lib/transaction');
-const operation = require('./lib/operation');
-const { Keypair } = require('stellar-base');
+const { hash } = require('./lib/transaction');
 const path = require('path');
-const crypto = require('crypto');
-const base32 = require('base32.js');
 
 const app = lotion({
   initialState: {
@@ -24,23 +20,16 @@ const app = lotion({
   logTendermint: process.env.SHOW_TENDERMINT_LOG === '1',
   rpcPort: 26657,
   abciPort: 26658,
-  p2pPort: 26656,
 });
 
 // Overwrite tendermint home
 app.home = path.join(__dirname, 'tendermint');
 
 app.use(function (state, tx) {
-  const hash = crypto.createHash('sha256')
-    .update(Transaction.encode(tx))
-    .digest()
-    .slice(0, 20)
-    .toString('hex')
-    .toUpperCase();
+  const txHash = hash(tx);
 
   // Account
-  const accountString = base32.encode(tx.account);
-  const account = state.accounts[accountString];
+  const account = state.accounts[tx.account];
   if (!account) {
     throw Error('Account does not exist.');
   }
@@ -52,45 +41,30 @@ app.use(function (state, tx) {
 
   // Memo
   if (tx.memo.length > 32) {
-    throw Error('Memo has more than 32 characters.');
-  }
-
-  // Signature
-  const key = Keypair.fromPublicKey(accountString);
-  // Hash for sign
-  const unsignedHash = crypto
-    .createHash('sha256')
-    .update(UnsignedTransaction.encode(tx))
-    .digest();
-  if (!key.verify(unsignedHash, tx.signature)) {
-    throw Error('Signature can not be verified.');
+    throw Error('Memo has more than 32 bytes.');
   }
 
   // Increase account sequence
   account.sequence++;
 
   // Operation: create account, payment, post, comment (?), like
-  if (tx.operation === operation.CREATE_ACCOUNT) {
-    const { address } = operation.CreateAccountParams.decode(tx.params);
-    const addressString = base32.encode(address);
-    // Check the key
-    Keypair.fromPublicKey(addressString);
-    const found = state.accounts[addressString];
+  if (tx.operation === 'create_account') {
+    const { address } = tx.params;
+    const found = state.accounts[address];
     if (found) {
       throw Error('Account address existed.');
     }
     const newAccount = {
       // Default display name
-      name: addressString,
+      name: address,
       balance: 0,
       sequence: 0,
       posts: {},
     };
-    state.accounts[addressString] = newAccount;
-  } else if (tx.operation === operation.PAYMENT) {
-    const { address, amount } = operation.PaymentParams.decode(tx.params);
-    const addressString = base32.encode(address);
-    if (address.compare(tx.account) === 0) {
+    state.accounts[address] = newAccount;
+  } else if (tx.operation === 'payment') {
+    const { address, amount } = tx.params;
+    if (address === tx.account) {
       throw Error('Cannot transfer to the same address');
     }
     if (amount <= 0) {
@@ -99,19 +73,20 @@ app.use(function (state, tx) {
     if (amount > account.balance) {
       throw Error('Amount must be less or equal to source balance');
     }
-    const found = state.accounts[addressString];
-    if (!found) {
+    const found = state.accounts[address];
+    if (!found) { 
       throw Error('Account address does not exist.');
     }
     account.balance -= amount;
     found.balance += amount;
-  } else if (tx.operation === operation.POST) {
-    const { content } = operation.PostParams.decode(tx.params);
-    account.posts[hash] = {
+  } else if (tx.operation === 'post') {
+    const { content } = tx.params;
+    // Mark post by hash
+    account.posts[txHash] = {
       content,
     };
-  } else if (tx.operation === operation.UPDATE_ACCOUNT) {
-    const { name } = operation.UpdateAccountParams.decode(tx.params);
+  } else if (tx.operation === 'update_account') {
+    const { name } = tx.params;
     if (name.length === 0) {
       throw Error('Account name cannot be empty');
     }
