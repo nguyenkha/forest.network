@@ -13,9 +13,11 @@ const app = lotion({
     // Default account
     accounts: {
       [process.env.GENESIS_ADDRESS]: {
+        name: process.env.GENESIS_ADDRESS,
         balance: Number.MAX_SAFE_INTEGER,
         sequence: 0,
         posts: {},
+        // followings: {},
       },
     },
   },
@@ -78,6 +80,8 @@ app.use(function (state, tx) {
       throw Error('Account address existed.');
     }
     const newAccount = {
+      // Default display name
+      name: addressString,
       balance: 0,
       sequence: 0,
       posts: {},
@@ -106,6 +110,12 @@ app.use(function (state, tx) {
     account.posts[hash] = {
       content,
     };
+  } else if (tx.operation === operation.UPDATE_ACCOUNT) {
+    const { name } = operation.UpdateAccountParams.decode(tx.params);
+    if (name.length === 0) {
+      throw Error('Account name cannot be empty');
+    }
+    account.name = name;
   } else {
     throw Error('Operation is not support.');
   }
