@@ -12,6 +12,6 @@ USER node
 
 VOLUME [ "/usr/src/app/tendermint" ]
 
-EXPOSE 26656 26657 26658
+EXPOSE 26658
 
 CMD [ "yarn", "start" ]
