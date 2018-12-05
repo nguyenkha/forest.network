@@ -1,6 +1,6 @@
 {
-  "genesis_time": "2018-12-05T00:33:35.459693818Z",
-  "chain_id": "test-chain-grMWOz",
+  "genesis_time": "2018-11-28T00:00:00Z",
+  "chain_id": "forest-network-0",
   "consensus_params": {
     "block_size_params": {
       "max_bytes": "22020096",
@@ -12,13 +12,40 @@
   },
   "validators": [
     {
-      "address": "C8438455439695421A8D2C1B78B33AB5082BDFA2",
+      "address": "6EB398EF7290E8E834EBD072B4A274902E7849F1",
       "pub_key": {
         "type": "tendermint/PubKeyEd25519",
-        "value": "WTf24oYz01RpjL4JQof7yFOV5nXbKBkga0/AqVK2Iz4="
+        "value": "744hm4ojh0dEEd5JFhbAaJCJ6JJhTRuJgEUyfr1tNNQ="
       },
       "power": "10",
-      "name": ""
+      "name": "zebra"
+    },
+    {
+      "address": "A08B4628DA1F49130E5E2FA14C5CA06E65C6C077",
+      "pub_key": {
+        "type": "tendermint/PubKeyEd25519",
+        "value": "wMHkYe/DucKbYfHU2o+MZ1S0QSLtCBqws8CrqC8H/Ok="
+      },
+      "power": "10",
+      "name": "gorilla"
+    },
+    {
+      "address": "64541E5A70DAB586EE8C4EE93092FCE0A2A0891C",
+      "pub_key": {
+        "type": "tendermint/PubKeyEd25519",
+        "value": "/qVSIAZgDEe/MNBzaN9uORNK8nWXdpuFLgOfmPfLff0="
+      },
+      "power": "10",
+      "name": "komodo"
+    },
+    {
+      "address": "BDC85B7B30290CD0616DFB3D174B482551DA5131",
+      "pub_key": {
+        "type": "tendermint/PubKeyEd25519",
+        "value": "jMWIMQaNswPpACITtLH9EV6bRLA5XPMwkPRK6zeBYSw="
+      },
+      "power": "10",
+      "name": "dragonfly"
     }
   ],
   "app_hash": ""
