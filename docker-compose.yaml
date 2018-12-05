@@ -1,15 +1,28 @@
 version: '3'
 services:
-  core:
+  proxy:
+    depends_on:
+      - db
     ports:
       - 9229:9229
-      - 26656:26656
-      - 26657:26657
       - 26658:26658
     environment:
-      SHOW_TENDERMINT_LOG: 1
+      PORT: 26658
+      DATABASE_URL: postgres://postgres:@db:5432/postgres
       GENESIS_ADDRESS: GAS3UFFXDUNZ57526OEY7D7642ELZ2DXIKAYHP6IR6PGM2UGEO7RXZDX
     build: .
-    volumes:
-      - ./tendermint:/usr/src/app/tendermint
     command: yarn inspect
+  db:
+    ports:
+      - 5432:5432
+    image: postgres:alpine
+  tendermint:
+    depends_on:
+      - proxy
+    image: tendermint/tendermint:0.25.0
+    ports:
+      - 26656:26656
+      - 26657:26657
+    volumes:
+      - ./tendermint:/tendermint
+    command: node --moniker=`hostname` --proxy_app=tcp://proxy:26658
