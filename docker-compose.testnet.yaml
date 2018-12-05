@@ -9,7 +9,7 @@ services:
     environment:
       PORT: 26658
       DATABASE_URL: postgres://postgres:@db:5432/postgres
-      GENESIS_ADDRESS: GA6IW2JOWMP4WGI6LYAZ76ZPMFQSJAX4YLJLOQOWFC5VF5C6IGNV2IW7
+      GENESIS_ADDRESS: GAS3UFFXDUNZ57526OEY7D7642ELZ2DXIKAYHP6IR6PGM2UGEO7RXZDX
     build: .
     command: yarn inspect
   db:
@@ -19,7 +19,7 @@ services:
   tendermint:
     image: tendermint/tendermint:0.25.0
     volumes:
-      - ./tendermint:/tendermint
+      - ./testnet:/tendermint
     depends_on:
       - proxy
     ports:

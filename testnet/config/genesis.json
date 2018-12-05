@@ -1,0 +1,25 @@
+{
+  "genesis_time": "2018-12-05T00:33:35.459693818Z",
+  "chain_id": "test-chain-grMWOz",
+  "consensus_params": {
+    "block_size_params": {
+      "max_bytes": "22020096",
+      "max_gas": "-1"
+    },
+    "evidence_params": {
+      "max_age": "100000"
+    }
+  },
+  "validators": [
+    {
+      "address": "C8438455439695421A8D2C1B78B33AB5082BDFA2",
+      "pub_key": {
+        "type": "tendermint/PubKeyEd25519",
+        "value": "WTf24oYz01RpjL4JQof7yFOV5nXbKBkga0/AqVK2Iz4="
+      },
+      "power": "10",
+      "name": ""
+    }
+  ],
+  "app_hash": "666F726573742E6E6574776F726B206279204B686120446F"
+}

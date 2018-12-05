@@ -1,9 +1,27 @@
 # forest.network - decentralized social network
 
-## Installation
+## Requirements
 
-1. Install Docker
+- Install Docker CE: [https://docs.docker.com/install/](https://docs.docker.com/install/)
 
-2. `docker-compose build`
+## Mainnet
 
-3. `docker-compose up`
+1. Init tendermint
+
+```bash
+docker-compose run --rm tendermint init
+```
+
+2. Run node
+
+```bash
+docker-compose up
+```
+
+## Testnet
+
+1. Run node
+
+```bash
+docker-compose -f docker-compose.testnet.yaml up
+```
