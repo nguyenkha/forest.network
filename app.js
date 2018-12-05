@@ -9,7 +9,7 @@ db.sync().then(async () => {
   if (count === 0) {
     await Account.create({
       address: process.env.GENESIS_ADDRESS,
-      balance: 0,
+      balance: Number.MAX_SAFE_INTEGER,
       sequence: 0,
       bandwidth: 0,
     });
