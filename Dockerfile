@@ -10,8 +10,6 @@ COPY . .
 
 USER node
 
-VOLUME [ "/usr/src/app/tendermint" ]
-
 EXPOSE 26658
 
 CMD [ "yarn", "start" ]
