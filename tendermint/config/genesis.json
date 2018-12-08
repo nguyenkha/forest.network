@@ -2,12 +2,17 @@
   "genesis_time": "2018-11-28T00:00:00Z",
   "chain_id": "forest-network-0",
   "consensus_params": {
-    "block_size_params": {
+    "block_size": {
       "max_bytes": "22020096",
       "max_gas": "-1"
     },
-    "evidence_params": {
+    "evidence": {
       "max_age": "100000"
+    },
+    "validator": {
+      "pub_key_types": [
+        "ed25519"
+      ]
     }
   },
   "validators": [

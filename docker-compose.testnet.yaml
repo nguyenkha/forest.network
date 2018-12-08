@@ -17,7 +17,7 @@ services:
       - 5432:5432
     image: postgres:alpine
   tendermint:
-    image: tendermint/tendermint:0.25.0
+    image: tendermint/tendermint:0.27.0
     volumes:
       - ./testnet:/tendermint
     depends_on:

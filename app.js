@@ -1,3 +1,4 @@
+const grpc = require('grpc');
 const db = require('./lib/db');
 const Account = require('./lib/account');
 const server = require('./lib/server');
@@ -15,6 +16,7 @@ db.sync().then(async () => {
     });
   }
   const port = process.env.PORT || 26658;
-  server.listen(port);
+  server.bind(`0.0.0.0:${port}`, grpc.ServerCredentials.createInsecure());
+  server.start();
   console.log(`Server is listening on port ${port}`);
 }).catch(console.error);
