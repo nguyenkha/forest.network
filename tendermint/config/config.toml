@@ -109,7 +109,7 @@ laddr = "tcp://0.0.0.0:26656"
 external_address = ""
 
 # Comma separated list of seed nodes to connect to
-seeds = "tcp://54a610352a6f59c782f99020ed08ef1b73998655@komodo.forest.network:26656,tcp://50e7e2dd0c1bcf34e88162a5e97e6151709451fe@gorilla.forest.network:26656,tcp://d0fb7af79b4969bb0a9646f7ce4478693c04d7e7@zebra.forest.network:26656,tcp://72d8ea30161d33347aea23f2d180388eb3de3c41@dragonfly.forest.network:26656"
+seeds = "tcp://54a610352a6f59c782f99020ed08ef1b73998655@komodo.forest.network:26656,tcp://50e7e2dd0c1bcf34e88162a5e97e6151709451fe@gorilla.forest.network:26656,tcp://d0fb7af79b4969bb0a9646f7ce4478693c04d7e7@zebra.forest.network:26656,tcp://72d8ea30161d33347aea23f2d180388eb3de3c41@dragonfly.forest.network:26656,tcp://ceff623c2b1e361d95106a5a97d1d41ce649f2e6@fox.forest.network:26656"
 
 # Comma separated list of nodes to keep persistent connections to
 persistent_peers = ""
