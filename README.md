@@ -15,7 +15,7 @@ docker-compose run --rm tendermint init
 2. Run node
 
 ```bash
-docker-compose up
+docker-compose up --build
 ```
 
 ## Testnet
@@ -23,5 +23,5 @@ docker-compose up
 1. Run node
 
 ```bash
-docker-compose -f docker-compose.testnet.yaml up
+docker-compose -f docker-compose.testnet.yaml up --build
 ```
