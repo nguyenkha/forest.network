@@ -21,7 +21,7 @@ services:
     volumes:
       - ./testnet:/tendermint
     depends_on:
-      - proxy
+      - app
     ports:
       - 26656:26656
       - 26657:26657
