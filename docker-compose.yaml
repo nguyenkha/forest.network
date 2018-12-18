@@ -17,7 +17,7 @@ services:
       - 5432:5432
     image: postgres:alpine
   tendermint:
-    image: tendermint/tendermint:0.27.0
+    image: tendermint/tendermint:0.27.3
     volumes:
       - ./tendermint:/tendermint
     depends_on:
@@ -26,11 +26,3 @@ services:
       - 26656:26656
       - 26657:26657
     command: "node --proxy_app=tcp://app:26658"
-  proxy:
-    ports:
-      - 5000:80
-    image: nginx:alpine
-    depends_on:
-      - tendermint
-    volumes:
-      - ./nginx/nginx.conf:/etc/nginx/nginx.conf
